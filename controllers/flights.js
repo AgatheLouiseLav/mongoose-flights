@@ -15,17 +15,21 @@ function newFlight(req, res) {
 };
 
 async function create(req, res) {
-	// req.body.nowShowing = !!req.body.nowShowing;
-	//req.body.cast = req.body.cast.trim();
-	//if(req.body.cast){
-	//	req.body.cast = req.body.cast.split(/\s*,\s*/)
-	//}
-	try{
+	//const isCorrect = req.body.airline.split(/^[A-Z][a-z\s]*$/);
+	const regex = new RegExp('/^[A-Z][a-z\s]*$/');
+	const isCorrect = regex.test(req.body.airline);
+	console.log(isCorrect);
+	if(isCorrect){
+		try{
     await Flight.create(req.body);
 	res.redirect('/flights');
 	} catch(err) {
-		res.render('flights/news', { error: err.message})
+		res.render('flights/new', { error: err.message})
 	}
+	} else {
+		res.render('flights/new', { errorMsg: 'test'})
+	}
+	
 };
 
 module.exports = {

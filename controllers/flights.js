@@ -15,10 +15,9 @@ function newFlight(req, res) {
 };
 
 async function create(req, res) {
-	//const isCorrect = req.body.airline.split(/^[A-Z][a-z\s]*$/);
-	const regex = new RegExp('/^[A-Z][a-z\s]*$/');
-	const isCorrect = regex.test(req.body.airline);
-	console.log(isCorrect);
+	const regexAirline = /^[A-Z][a-z]*$/;
+  	const isCorrect = regexAirline.test(req.body.airline);
+  	console.log(isCorrect);
 	if(isCorrect){
 		try{
     await Flight.create(req.body);
@@ -27,10 +26,8 @@ async function create(req, res) {
 		res.render('flights/new', { error: err.message})
 	}
 	} else {
-		res.render('flights/new', { errorMsg: 'test'})
-	}
-	
-};
+		res.render('flights/new', { errorMsg: 'The airline name must start with a capital letter, followed by lowercase letters and no digits.' });
+	}}
 
 module.exports = {
 	index,

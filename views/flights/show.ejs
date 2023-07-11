@@ -12,13 +12,13 @@
   <div><%= flight.flightNo %></div>
   <br>
   <div>Departs: </div>
-  <div><%= flight.departs.toLocaleDateString() %></div>
+  <div><%= flight.departs.toLocaleDateString() %>  <%= flight.departs.toLocaleTimeString('en-US') %></div>
   <br>
  
   <br><br>
 
 <h4>Add Destination</h4>
-<form action="/flights/<%= flight._id %>" method="POST">
+<form action="/flights/<%= flight._id %>/arrivals" method="POST">
   <label>Destination:</label>
    <select name="airport">
 		<option value="CDG">CDG</option>
@@ -31,19 +31,19 @@
   <input type="submit" value="Add Infos">
 </form>
 
-<% if (flight.destination.lenght) { %>
+<% if (flight.destination.length) { %>
   <table>
     <thead>
       <tr>
         <th>Arrival</th>
-        <th>Time</th>
+        <th>Date & Time</th>
       </tr>
     </thead>
     <tbody>
       <% flight.destination.forEach(function(f) { %>
         <tr>
           <td><%= f.airport %></td>
-          <td><%= f.arrival.toLocaleDateString() %></td>
+          <td><%= f.arrival.toLocaleDateString() %>  <%= f.arrival.toLocaleTimeString('en-US') %></td>
         </tr>
       <% }); %>
     </tbody>

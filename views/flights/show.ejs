@@ -2,36 +2,27 @@
 
 <section>
 	<br><br>
-  <div>Flight: </div>
-  <div><%= flight.airline %></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Flight:</th>
+        <th>Airport:</th>
+        <th>Flight Number:</th>
+        <th>Departs:</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= flight.airline %></td>
+        <td><%= flight.airport %></td>
+        <td><%= flight.flightNo %></td>
+        <td><%= flight.departs.toLocaleDateString() %>  <%= flight.departs.toLocaleTimeString('en-US') %></td>
+      </tr>
+    </tbody>
+  </table>
   <br>
-  <div>Airport: </div>
-  <div><%= flight.airport %></div>
-  <br>
-  <div>Flight Number: </div>
-  <div><%= flight.flightNo %></div>
-  <br>
-  <div>Departs: </div>
-  <div><%= flight.departs.toLocaleDateString() %>  <%= flight.departs.toLocaleTimeString('en-US') %></div>
-  <br>
- 
-  <br><br>
 
-<h4>Add Destination</h4>
-<form action="/flights/<%= flight._id %>/arrivals" method="POST">
-  <label>Destination:</label>
-   <select name="airport">
-		<option value="CDG">CDG</option>
-		<option value="DXB">DXB</option>
-		<option value="BOM">BOM</option>
-		<option value="LHR">LHR</option>
-	</select>
-  <label>Arrival:</label>
-  <input type="datetime-local" name="arrival">
-  <input type="submit" value="Add Infos">
-</form>
-
-<% if (flight.destination.length) { %>
+  <% if (flight.destination.length) { %>
   <table>
     <thead>
       <tr>
@@ -52,5 +43,36 @@
   <h5>No Arrival Yet</h5>
 <% } %>
 </section>
+ 
+  <br><br>
+
+<h4>Add Destination</h4>
+<form action="/flights/<%= flight._id %>/arrivals" method="POST">
+  <label>Destination:</label>
+   <select name="airport">
+		<option value="CDG">CDG</option>
+		<option value="DXB">DXB</option>
+		<option value="BOM">BOM</option>
+		<option value="LHR">LHR</option>
+	</select>
+  <label>Arrival:</label>
+  <input type="datetime-local" name="arrival">
+  <input type="submit" value="Add Infos">
+</form>
+<br>
+<h4>Generate Ticket</h4>
+<form action="/flights/<%= flight._id %>/ticket" method="POST">
+<label>Seat: </label>	
+<input name="seat" required pattern="[A-F][1-9]\d?">
+<br><br>
+<label>Price: </label>	
+<input name="price" type="number" required >
+<br><br>
+<label>Flight Number:</label>
+<input name="flight" required>
+<br><br>
+<button type="submit">Create Ticket</button>
+</form>
+
 
 <%- include('../partials/footer') %>

@@ -8,12 +8,13 @@ const destinationSchema = new Schema({
   timestamps: true
 });
 
+
 const flightSchema = new Schema({
 	airline: String,
 	airport: String,
 	flightNo: Number,
 	departs: Date,
-	destination: [destinationSchema]
+	destination: [destinationSchema],
 },{
   timestamps: true
 });

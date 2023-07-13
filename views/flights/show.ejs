@@ -9,7 +9,6 @@
         <th>Airport:</th>
         <th>Flight Number:</th>
         <th>Departs:</th>
-        <th>Ticket:</th>
     </tr>
     </thead>
     <tbody>
@@ -18,9 +17,6 @@
         <td><%= flight.airport %></td>
         <td><%= flight.flightNo %></td>
         <td><%= flight.departs.toLocaleDateString() %>  <%= flight.departs.toLocaleTimeString('en-US') %></td>
-        <% tickets.forEach(function(t) { %>
-            <td><%= t.seat %> & <%= t.price %></td>
-        <% }) %>
       </tr>
     </tbody>
   </table>
@@ -46,6 +42,24 @@
 <% } else { %>
   <h5>No Arrival Yet</h5>
 <% } %>
+<br><br>
+<table>
+  <h3>Ticket</h3>
+  <thead>
+    <tr>
+        <th>Seat</th>
+        <th>Price</th>
+    </tr>
+  </thead>
+  <tbody >
+    <% tickets.forEach(function(t) { %>
+    <tr>
+      <td><%= t.seat %></td>
+      <td>£<%= t.price %></td>
+    </tr>
+     <% }) %>
+  </tbody>
+</table>
 </section>
  
   <br><br>
@@ -65,14 +79,14 @@
 </form>
 <br>
 <h4>Generate Ticket</h4>
-<form action="/flights/<%= flight._id %>/ticket" method="POST">
+<form action="/flights/<%= flight._id %>/tickets" method="POST">
 <label>Seat: </label>	
 <input name="seat" required pattern="[A-F][1-9]\d?">
 <br><br>
 <label>Price: </label>	
 <input name="price" type="number" required >
 <br><br>
-<button type="submit">Create Ticket</button>
+<button type="submit">New Ticket</button>
 </form>
 
 

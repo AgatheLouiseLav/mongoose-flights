@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket')
 
 async function index(req, res) {
 	try {
@@ -14,7 +15,8 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const flight = await Flight.findById(req.params.id);
-    res.render('flights/show', { title: 'Flight Details', flight });
+	const tickets = await Ticket.find({flight: flight._id })
+    res.render('flights/show', { title: 'Flight Details', flight , tickets });
   } catch (err) {
     console.log(err);
     res.redirect('/flights');
@@ -28,7 +30,6 @@ function newFlight(req, res) {
 async function create(req, res) {
 	const regexAirline = /^[A-Z][a-z]*$/;
   	const isCorrect = regexAirline.test(req.body.airline);
-  	console.log(isCorrect);
 	if(isCorrect){
 		try{
     await Flight.create(req.body);

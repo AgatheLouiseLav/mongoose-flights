@@ -9,6 +9,7 @@
         <th>Airport:</th>
         <th>Flight Number:</th>
         <th>Departs:</th>
+        <th>Ticket:</th>
     </tr>
     </thead>
     <tbody>
@@ -17,6 +18,9 @@
         <td><%= flight.airport %></td>
         <td><%= flight.flightNo %></td>
         <td><%= flight.departs.toLocaleDateString() %>  <%= flight.departs.toLocaleTimeString('en-US') %></td>
+        <% tickets.forEach(function(t) { %>
+            <td><%= t.seat %> & <%= t.price %></td>
+        <% }) %>
       </tr>
     </tbody>
   </table>

@@ -2,13 +2,13 @@ const Ticket = require('../models/ticket');
 const Flight = require('../models/flight');
 
 async function create(req, res) {
-  const flightId = req.params.id;
-  req.body.flight = flightId;
-  const flight = await Flight.findById(req.params.id);
+  //const flightId = req.params.id;
+  //req.body.flight = flightId;
+  //const flight = await Flight.findById(req.params.id);
   try {
+    req.body.flight = req.params.id
     const ticket = await Ticket.create(req.body);
-    flight.ticket.push(ticket._id);
-    flight.save();
+    console.log(ticket)
   } catch (err) {
     console.log(err);
   }
@@ -21,12 +21,12 @@ async function getTickets(req, res){
    const flight = await Flight.findById(req.params.id)
 
    // get the tickets document from the db - passing the current flight id as a filter  
-   const ticket = await Ticket.find({ flight: flight._id })
+   const tickets = await Ticket.find({ flight: flight._id })
 
   // flight.ticket.push(req.body.flightId);
    
    // render the view, sending both the flight and ticket data through
-   res.render('flights/:id', { flight, ticket })
+   res.render('flights/:id', { flight, tickets })
 }
 
 
